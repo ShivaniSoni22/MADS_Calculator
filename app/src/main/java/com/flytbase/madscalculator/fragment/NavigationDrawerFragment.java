@@ -93,7 +93,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void fetchPrefs(ArrayList<CalculationHistory> list) {
         if (getActivity() != null) {
-            SharedPrefsUtil.loadData(getActivity());
+//            SharedPrefsUtil.loadData(getActivity());
             fragmentHistoryBinding.rvCalculationsHistory.setLayoutManager(new LinearLayoutManager(getActivity(),
                     LinearLayoutManager.VERTICAL, false));
             historyAdapter = new HistoryAdapter(list, getActivity(), expression -> {

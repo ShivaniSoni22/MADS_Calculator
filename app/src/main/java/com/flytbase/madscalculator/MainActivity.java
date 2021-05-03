@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String userId;
     private boolean isLoggedIn = false;
+    private ArrayList<CalculationHistory> historyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         firebaseAuth = FirebaseAuth.getInstance();
-        ArrayList<CalculationHistory> historyList = new ArrayList<>();
+        historyList = new ArrayList<>();
 
         if (firebaseAuth.getCurrentUser() != null) {
             userId = firebaseAuth.getCurrentUser().getUid();
@@ -253,9 +254,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         SharedPrefsUtil.clearData(MainActivity.this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        saveInHistory(historyList, MainActivity.this);
+    }
 }
